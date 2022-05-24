@@ -16,19 +16,18 @@ import { string } from 'yup/lib/locale'
 import LogoSecondary from '../../assets/secondary-logo.svg'
 import { Input } from '../../components/Form/Input'
 import { useState } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
+import { SignInCredentials } from '../../contexts/AuthContext'
 
 export const Login = () => {
   const [loading, setLoading] = useState(false)
+
+  const { signIn } = useAuth()
 
   const singInSchema = yup.object().shape({
     email: yup.string().required('Email obrigatório').email('Email inválido'),
     password: yup.string().required('Senha obrigatória')
   })
-
-  interface signData {
-    email?: string
-    password?: string
-  }
 
   const {
     formState: { errors },
@@ -38,7 +37,10 @@ export const Login = () => {
     resolver: yupResolver(singInSchema)
   })
 
-  const handlesingin = (data: signData) => console.log(data)
+  const handlesingin = (data: SignInCredentials) => {
+    setLoading(true)
+    signIn(data).then(_ => setLoading(false))
+  }
 
   return (
     <Flex
