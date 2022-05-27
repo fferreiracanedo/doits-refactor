@@ -15,11 +15,9 @@ import {
   ForwardRefRenderFunction,
   forwardRef
 } from 'react'
-
-import { FaExclamation } from 'react-icons/fa'
-
 import { FieldError } from 'react-hook-form'
 import { IconType } from 'react-icons'
+import { FaExclamation } from 'react-icons/fa'
 
 interface InputProps extends ChakraInputProps {
   name: string
@@ -44,8 +42,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   ref
 ) => {
   const [variation, setVariation] = useState('default')
-  const [value,setValue] = useState('')
-
+  const [value, setValue] = useState('')
 
   useEffect(() => {
     if (error) {
@@ -63,7 +60,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
     if (value.length > 1 && !error) {
       return setVariation('filled')
     }
-  }, [error,value])
+  }, [error, value])
 
   return (
     <FormControl isInvalid={!!error}>

@@ -16,6 +16,8 @@ import { string } from 'yup/lib/locale'
 import LogoSecondary from '../../assets/secondary-logo.svg'
 import { Input } from '../../components/Form/Input'
 import { useState } from 'react'
+import { ISignData } from '../../Interfaces/Interfaces'
+import { useAuth } from '../../contexts/AuthContext'
 
 export const Login = () => {
   const [loading, setLoading] = useState(false)
@@ -25,11 +27,6 @@ export const Login = () => {
     password: yup.string().required('Senha obrigatória')
   })
 
-  interface signData {
-    email?: string
-    password?: string
-  }
-
   const {
     formState: { errors },
     register,
@@ -38,7 +35,16 @@ export const Login = () => {
     resolver: yupResolver(singInSchema)
   })
 
-  const handlesingin = (data: signData) => console.log(data)
+  const { signIn } = useAuth()
+
+  const handlesingin = async (data: any) => {
+    // const { email, password } = bless
+    console.log(data)
+    // setLoading(true)
+    // await signIn(email, password)
+    //   .then(_ => setLoading(false))
+    //   .catch(err => setLoading(false))
+  }
 
   return (
     <Flex
